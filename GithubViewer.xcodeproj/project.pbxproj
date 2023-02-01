@@ -56,6 +56,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B673179298AD226006D951E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		6BB6025F298A84D300F8C24D = {
 			isa = PBXGroup;
 			children = (
@@ -77,7 +84,7 @@
 		6BB6026A298A84D300F8C24D /* GithubViewer */ = {
 			isa = PBXGroup;
 			children = (
-				6BB60283298A884200F8C24D /* ViewModel */,
+				6B673179298AD226006D951E /* ViewModel */,
 				6BB60282298A883D00F8C24D /* Model */,
 				6BB60281298A883900F8C24D /* View */,
 				6BB60280298A883200F8C24D /* Resources */,
@@ -124,18 +131,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		6BB60283298A884200F8C24D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		6BB60284298A89D000F8C24D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6BB60286298A89E200F8C24D /* Profile */,
 				6BB60285298A89DC00F8C24D /* Search */,
+				6BB60286298A89E200F8C24D /* Profile */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,7 +173,6 @@
 				AFABF2969D28DBF7E8B2924F /* Pods-GithubViewer.debug.xcconfig */,
 				D106963E6A7E17FC388907A0 /* Pods-GithubViewer.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

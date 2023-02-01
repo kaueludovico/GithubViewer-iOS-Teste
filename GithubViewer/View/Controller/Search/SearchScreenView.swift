@@ -26,6 +26,7 @@ class SearchScreenView: BaseView {
         textField.placeholder = "Nome de usuário"
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 10
+        textField.autocapitalizationType = .none
         return textField
     }()
     

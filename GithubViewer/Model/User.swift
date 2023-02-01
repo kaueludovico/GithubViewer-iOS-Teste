@@ -9,8 +9,8 @@ import Foundation
 
 struct User: Codable {
     var login: String
-    var avatarUrl: String
+    var avatar_url: String
     var reposUrl: String
     var name: String
-    var publicUrl: String
+    var publicRepos: Int
 }

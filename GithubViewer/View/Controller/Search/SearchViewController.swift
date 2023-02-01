@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SearchViewController: UIViewController {
     
@@ -20,30 +21,41 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        customView.searchButton.addTarget(self, action: #selector(getData), for: .touchUpInside)
+        customView.searchButton.addTarget(self, action: #selector(getDataAlamofire), for: .touchUpInside)
+    }
+    
+    @objc func getDataAlamofire() {
+        guard let baseUrl = URL(string: "https://api.github.com/users/\(customView.searchTextField.text ?? "")") else { return }
+        
+        AF.request(baseUrl, method: .get).response { response in
+            
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            let json = try? jsonDecoder.decode(User.self, from: response.data ?? Data())
+            
+            print(json as Any, ">>>>>>>>>>>>>>> RETORNO COM DADOS")
+        }
     }
     
     @objc func getData() {
-        let semaphore = DispatchSemaphore (value: 0)
-        
-        var request = URLRequest(url: URL(string: "https://api.github.com/users/\(customView.searchTextField.text ?? "")")!,timeoutInterval: Double.infinity)
+        guard let baseUrl = URL(string: "https://api.github.com/users/\(customView.searchTextField.text ?? "")") else { return }
+        var request = URLRequest(url: baseUrl)
         request.httpMethod = "GET"
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                print(String(describing: error))
-                semaphore.signal()
-                return
+            let response = response as! HTTPURLResponse
+            if response.statusCode < 400 {
+                if let data = data {
+                    let jsonDecoder = JSONDecoder()
+                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let json = try? jsonDecoder.decode(User.self, from: data)
+                    print(json as Any, ">>>>>>>>>>>>>>> RETORNO COM DADOS")
+                }
+            } else {
+                print(error as Any, ">>>>>>>>>>> ERRO")
             }
-            
-            let resp = response as? HTTPURLResponse
-            print(resp?.statusCode as Any, ">>>>>>>>>>>>>>>>>")
-            
-            print(String(data: data, encoding: .utf8)!, "FUNCIONA")
-            semaphore.signal()
         }
         task.resume()
-        semaphore.wait()
     }
 }
 
